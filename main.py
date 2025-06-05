@@ -16,6 +16,7 @@ option("test two",help="this is a 10",valid_actions=['h']),
 option("test two",help="this is the end aka 11",valid_actions=['h'])
 ))
 
+print('Start of Test')
 print("\033c",end="")
 test_screen.test = ""
 infodisplay:str = ""

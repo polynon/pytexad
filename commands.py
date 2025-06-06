@@ -1,5 +1,5 @@
 from sys import exit
-valid_commands = ['q','w','s','l']
+valid_commands = ['q']
 
 def quit():
     exit()

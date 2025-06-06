@@ -1,45 +1,25 @@
-from screen import *
 from input import *
 from save import load, save
 import commands
+import screens
+from screen import validaction
 
-test_screen = screen((option("test one"),
-option("test two",help="this is a 2",valid_actions=['h']),
-option("test two",help="this is a 3",valid_actions=['h']),
-option("test two",help="this is a 4",valid_actions=['h']),
-option("test two",help="this is a 5",valid_actions=['h']),
-option("test two",help="this is a 6",valid_actions=['h']),
-option("test two",help="this is a 7",valid_actions=['h']),
-option("test two",help="this is a 8",valid_actions=['h']),
-option("test two",help="this is a 9",valid_actions=['h']),
-option("test two",help="this is a 10",valid_actions=['h']),
-option("test two",help="this is the end aka 11",valid_actions=['h'])
-))
+current_screen = screens.test_room_one
 
-print('Start of Test')
-print("\033c",end="")
-test_screen.test = ""
-infodisplay:str = ""
+def try_change_screen(valid_action:validaction):
+    global current_screen 
+    current_screen = valid_action.go_to_where
+
 while True:
-    print(f"\033c{test_screen.get_display()}{infodisplay}",end="\n")
-    action = betterinput(options=test_screen.options)
-    infodisplay = ""
-    
-    if action:
-        if action.type == "command":
-            match action.form:
-                case 'q':
-                    commands.quit()
-                case 'l':
-                    obj = load("saves/test")
-                    if obj:
-                        test_screen = obj
-                        print(test_screen.test)
-                    input()
-                case 's':
-                    save(test_screen,"saves/test")
-                case 'w':
-                    test_screen.test = input()
-
-        elif action.type == "action" and action.form == "h":
-            infodisplay = "\n"+test_screen.options[action.place].help
+    print(f"\033c{current_screen.title}{current_screen.get_display()}")
+    action = betterinput(current_screen.options)
+    if not action:
+        continue
+    if action.type == "command":
+        match action.form:
+            case 'q':
+                commands.quit()
+    if action.type == "action":
+        match action.form:
+            case 'goto':
+                try_change_screen(current_screen.options[action.place].valid_actions[action.form])

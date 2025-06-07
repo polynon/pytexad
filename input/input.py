@@ -1,5 +1,5 @@
-from screen import option
-from commands import valid_commands
+from screen.screen import option
+from input.commands import valid_commands
 from re import search
 import re
 

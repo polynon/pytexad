@@ -1,5 +1,5 @@
-from screen import screen
-from screen import option
+from screen.screen import screen
+from screen.screen import option
 
 blankL = lambda *args:""
 

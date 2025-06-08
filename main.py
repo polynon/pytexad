@@ -1,4 +1,4 @@
-from input.input import betterinput
+from input.input import better_input
 from util.save import load,save
 from display.display import display
 from input.commands import *

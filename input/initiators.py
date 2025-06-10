@@ -8,7 +8,7 @@ def select_check(raw_input,options):
     id = int(regexed.group()) -1
     if (id < 0) or (id > len(options) -1):
         return None
-    return initiator(id=id,valid_forms=options[id].valid_actions,form=raw_input[id+1::],type="action")
+    return initiator(id=id,valid_forms=options[id].valid_actions,form=raw_input[len(regexed.group())::],type="action")
 
 from input.commands import valid_commands
 def command_check(raw_input,*args):
